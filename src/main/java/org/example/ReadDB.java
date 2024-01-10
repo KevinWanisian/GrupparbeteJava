@@ -12,18 +12,11 @@ public class ReadDB {
     static String url = CreateDB.url;
     public static void main (String[] args){
         ReadDB read = new ReadDB();
-        String output = read.selectAll().toString();
-        System.out.println(output);
-    }
-    // Skapar en ny koppling till databasen och returnerar Connection objektet
-    private Connection kontakt() {
-        Connection kontakt = null;
-        try {
-            kontakt = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+        // Printar ut innehållet i databasen
+        for (String i : read.selectAll()) {
+            System.out.println(i);
         }
-        return kontakt;
     }
     // Skickar ett SELECT query till databasen
     // Returnerar en Arraylist med värdena i test tabellen
@@ -33,10 +26,11 @@ public class ReadDB {
         ArrayList<String> lst_response = new ArrayList<String>();
 
         try {
-            Connection kontakt = this.kontakt();
+            Connection kontakt = new GetConnection().kontakt(url);
             Statement cursor = kontakt.createStatement();
             ResultSet r = cursor.executeQuery(query);
 
+            // Lägger till resultatet från databsen i en arraylist och returnerar den
             while (r.next()) {
                 String id = String.valueOf(r.getInt("id"));
                 String name = r.getString("name");
