@@ -1,5 +1,3 @@
-package org.example;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,8 +44,16 @@ public class Main {
                 case 1:
                     System.out.print("Ange ditt namn: ");
                     String customerName = scanner.next();
+
+                    // Felhantering för antal gäster
                     System.out.print("Ange antal gäster: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("Ange antal i siffror, försök igen.");
+                        System.out.print("Ange antal gäster: ");
+                        scanner.next(); // Rensa inmatningen
+                    }
                     int numberOfGuests = scanner.nextInt();
+
                     System.out.print("Ange datum för bokningen (YYYY-MM-DD): ");
                     String reservationDate = scanner.next();
 
