@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="La till klasser för att hantera sql queries">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/GetConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CreateDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CreateDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/InsertDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/InsertDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReadDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReadDB.java" afterDir="false" />
     </list>
