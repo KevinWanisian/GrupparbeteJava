@@ -9,6 +9,10 @@ class Restaurant {
     private final ArrayList<Reservation> reservations = new ArrayList<>();
 
     public void makeReservation(String customerName, int numberOfGuests, String reservationDate) {
+        // För att koppla till databas: Ersätt hårdkodade delar med nya parametrar
+        InsertDB insertDB = new InsertDB();
+        insertDB.InsertIntoTableBookings(customerName,"070 888 99 44", numberOfGuests, 5, reservationDate, "17:00-19:00");
+        // Tidigare kod
         Reservation reservation = new Reservation(customerName, numberOfGuests, reservationDate);
         reservations.add(reservation);
         System.out.println("Bokning skapad för " + customerName + " på " + reservationDate);

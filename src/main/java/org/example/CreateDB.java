@@ -8,7 +8,6 @@ public class CreateDB {
     public static void main(String[] args) {
         CreateNewDB();
         CreateTableTables();
-        CreateTableCustomers();
         CreateTableBookings();
     }
     // Testar att ansluta till db filen, om ingen fil finns så skapas en ny automatiskt
@@ -27,7 +26,6 @@ public class CreateDB {
         // Bords-tabell
         String query = "CREATE TABLE IF NOT EXISTS Tables"
                 + "(TableID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "TableNumber INTEGER,"
                 + "Seats INTEGER );";
 
         try {
@@ -41,36 +39,17 @@ public class CreateDB {
     }
 
     // Skapar en ny tabell i databasen
-    static void CreateTableCustomers() {
-        // SQL koden som skickas till databasen
-        // Kund-tabell
-        String query = "CREATE TABLE IF NOT EXISTS Customers"
-                + "(CustomerID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "Name TEXT,"
-                + "Email TEXT,"
-                + "Phone TEXT);";
-
-        try {
-            Connection kontakt = DriverManager.getConnection(url); // Skapar en ny koppling till filen vid urlen
-            Statement cursor = kontakt.createStatement(); // Typ samma som cursor i python
-            cursor.execute(query); // Skickar sql queryt till databasen
-            System.out.println("Customer-tabell skapad");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    // Skapar en ny tabell i databasen
     static void CreateTableBookings() {
         // SQL koden som skickas till databasen
         // Boknings-tabell
         String query = "CREATE TABLE IF NOT EXISTS Bookings"
                 + "(BookingID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "CustomerID INTEGER,"
+                + "Name TEXT,"
+                + "Phone TEXT,"
+                + "Guests INTEGER,"
                 + "TableID INTEGER,"
                 + "Day TEXT,"
                 + "Time TEXT,"
-                + "FOREIGN KEY (CustomerID)"
-                + "REFERENCES Customers (CustomerID)"
                 + "FOREIGN KEY (TableID)"
                 + "REFERENCES Tables (TableID));";
 
