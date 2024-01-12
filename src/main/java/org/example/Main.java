@@ -1,5 +1,3 @@
-package org.example;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,15 +38,40 @@ public class Main {
             System.out.println("2. Visa aktuella bokningar");
             System.out.println("3. Avsluta");
 
+            // Felhantering för ogiltigt menyval
+            while (!scanner.hasNextInt()) {
+                System.out.println("Ogiltigt val. Vänligen försök igen.");
+                scanner.next(); // Rensa inmantningen
+            }
             int choice = scanner.nextInt();
 
+            // Felhantering för namn
             switch (choice) {
                 case 1:
                     System.out.print("Ange ditt namn: ");
+                    while (!scanner.hasNext("[a-zA-Z]+")) {
+                        System.out.println("Endast bokstäver tillåtna i namnet. Försök igen.");
+                        System.out.print("Ange ditt namn: ");
+                        scanner.next();
+                    }
                     String customerName = scanner.next();
+
+                    // Felhantering för antal gäster
                     System.out.print("Ange antal gäster: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("Endast siffror. Försök igen.");
+                        System.out.print("Ange antal gäster: ");
+                        scanner.next();
+                    }
                     int numberOfGuests = scanner.nextInt();
+
+                    // Felhantering för datum
                     System.out.print("Ange datum för bokningen (YYYY-MM-DD): ");
+                    while (!scanner.hasNext("\\d{4}-\\d{2}-\\d{2}")) {
+                        System.out.println("Ogiltigt datum inskrivet. Försök igen.");
+                        System.out.print("Ange datum för bokningen (YYYY-MM-DD): ");
+                        scanner.next();
+                    }
                     String reservationDate = scanner.next();
 
                     restaurant.makeReservation(customerName, numberOfGuests, reservationDate);
