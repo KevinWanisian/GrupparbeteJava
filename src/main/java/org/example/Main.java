@@ -3,15 +3,32 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-record Reservation(String customerName, int numberOfGuests, String reservationDate){}
+record Reservation(String customerName, int numberOfGuests, String reservationDate) {}
 
 class Restaurant {
     private final ArrayList<Reservation> reservations = new ArrayList<>();
 
     public void makeReservation(String customerName, int numberOfGuests, String reservationDate) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Lägg till begäran om e-post
+        System.out.print("Ange din e-post: ");
+        String email = scanner.nextLine();
+
+        // Lägg till begäran om telefonnummer och felhantering för endast siffror
+        String phoneNumber;
+        do {
+            System.out.print("Ange ditt telefonnummer (endast siffror): ");
+            phoneNumber = scanner.nextLine();
+            if (!phoneNumber.matches("\\d+")) {
+                System.out.println("Ogiltigt telefonnummer. Ange endast siffror.");
+            }
+        } while (!phoneNumber.matches("\\d+"));
+
         Reservation reservation = new Reservation(customerName, numberOfGuests, reservationDate);
         reservations.add(reservation);
-        System.out.println("Bokning skapad för " + customerName + " på " + reservationDate);
+        System.out.println("Bokning skapad för " + customerName + " på " + reservationDate +
+                " med e-post: " + email + " och telefonnummer: " + phoneNumber);
     }
     public void removeReservation(String customerName) {
         for (int i = 0; i < reservations.size(); i++) {
