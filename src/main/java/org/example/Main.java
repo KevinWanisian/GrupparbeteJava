@@ -1,5 +1,6 @@
 package org.example;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,10 +9,10 @@ record Reservation(String customerName, int numberOfGuests, String reservationDa
 class Restaurant {
     private final ArrayList<Reservation> reservations = new ArrayList<>();
 
-    public void makeReservation(String customerName, int numberOfGuests, String reservationDate) {
+    public void makeReservation(String customerName, String phoneNumber, int numberOfGuests, String reservationDate, String reservationTime) {
         // För att koppla till databas: Ersätt hårdkodade delar med nya parametrar
         InsertDB insertDB = new InsertDB();
-        insertDB.InsertIntoTableBookings(customerName,"070 888 99 44", numberOfGuests, 5, reservationDate, "17:00-19:00");
+        insertDB.InsertIntoTableBookings(customerName, phoneNumber, numberOfGuests, 5, reservationDate, reservationTime);
         // Tidigare kod
         Reservation reservation = new Reservation(customerName, numberOfGuests, reservationDate);
         reservations.add(reservation);
@@ -58,6 +59,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Restaurant restaurant = new Restaurant();
+        ReadDB readDB = new ReadDB();
 
         while (true) {
             System.out.println("Välkommen till bordsbokningssystemet!");
@@ -85,6 +87,15 @@ public class Main {
                     }
                     String customerName = scanner.next();
 
+                    // Lägg till begäran om telefonnummer och felhantering för endast siffror
+                    System.out.print("Ange ditt telefonnummer (endast siffror): ");
+                    while (!scanner.hasNext("[0-9]+")) {
+                            System.out.println("Ogiltigt telefonnummer. Ange endast siffror.");
+                            System.out.print("Ange ditt telefonnummer (endast siffror): ");
+                            scanner.next();
+                        }
+                    String phoneNumber = scanner.next();
+
                     // Felhantering för antal gäster
                     System.out.print("Ange antal gäster: ");
                     while (!scanner.hasNextInt()) {
@@ -103,10 +114,23 @@ public class Main {
                     }
                     String reservationDate = scanner.next();
 
-                    restaurant.makeReservation(customerName, numberOfGuests, reservationDate);
+                    // Felhantering för tid
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                    System.out.print("Ange tid för bokningen (HH:MM-HH:MM): ");
+                    while (!scanner.hasNext("\\d{2}:\\d{2}-\\d{2}:\\d{2}")) {
+                        System.out.println("Ogiltig tid inskriven. Försök igen.");
+                        System.out.print("Ange tid för bokningen (HH:MM): ");
+                        scanner.next();
+                    }
+                    String reservationTime = scanner.next();
+
+                    restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, reservationDate, reservationTime);
                     break;
                 case 2:
-                    restaurant.displayReservations();
+                    //restaurant.displayReservations();
+                    for (String i: readDB.selectAllBookingsSortedByDate()) {
+                        System.out.println(i);
+                    }
                     break;
                 case 3:
                     System.out.print("Ange datum för bokningen som ska ändras (YYYY-MM-DD): ");
