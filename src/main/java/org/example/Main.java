@@ -2,9 +2,9 @@ package org.example;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
-record Reservation(String customerName, int numberOfGuests, String reservationDate){}
+record Reservation(String customerName, String phoneNumber, int numberOfGuests, String reservationDate, String reservationTime) {}
 
 class Restaurant {
     private final ArrayList<Reservation> reservations = new ArrayList<>();
@@ -14,145 +14,101 @@ class Restaurant {
         InsertDB insertDB = new InsertDB();
         insertDB.InsertIntoTableBookings(customerName, phoneNumber, numberOfGuests, 5, reservationDate, reservationTime);
         // Tidigare kod
-        Reservation reservation = new Reservation(customerName, numberOfGuests, reservationDate);
+        Reservation reservation = new Reservation(customerName, phoneNumber, numberOfGuests, reservationDate, reservationTime);
         reservations.add(reservation);
-        System.out.println("Bokning skapad för " + customerName + " på " + reservationDate);
+        messageDialog("Bokning skapad för " + customerName + " på " + reservationDate);
     }
+
     public void removeReservation(String customerName) {
         for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).customerName().equals(customerName)) {
                 reservations.remove(i);
-                System.out.println("Bokningen för " + customerName + " har tagits bort.");
+                messageDialog("Bokningen för " + customerName + " har tagits bort.");
                 return;
             }
         }
-        System.out.println("Ingen bokning hittades för " + customerName);
+        messageDialog("Ingen bokning hittades för " + customerName);
     }
+
     public void changeReservation(String reservationDate, String newCustomerName, int newNumberOfGuests) {
         for (int i = 0; i < reservations.size(); i++) {
             Reservation reservation = reservations.get(i);
             if (reservation.reservationDate().equals(reservationDate)) {
-                Reservation updatedReservation2 = new Reservation(newCustomerName, newNumberOfGuests, reservationDate);
-                reservations.set(i, updatedReservation2);
-                System.out.println("Bokningen ändrad för " + newCustomerName + " på " + reservationDate);
+                Reservation updatedReservation = new Reservation(newCustomerName, reservation.phoneNumber(), newNumberOfGuests, reservationDate, reservation.reservationTime());
+                reservations.set(i, updatedReservation);
+                messageDialog("Bokningen ändrad för " + newCustomerName + " på " + reservationDate);
                 return;
             }
         }
-        System.out.println("Ingen bokning hittades för datumet " + reservationDate);
+        messageDialog("Ingen bokning hittades för datumet " + reservationDate);
     }
 
     public void displayReservations() {
         if (reservations.isEmpty()) {
-            System.out.println("Inga bokningar för närvarande.");
+            messageDialog("Inga bokningar för närvarande.");
         } else {
-            System.out.println("Aktuella bokningar:");
+            StringBuilder reservationInfo = new StringBuilder("Aktuella bokningar:\n");
             for (Reservation reservation : reservations) {
-                System.out.println("Kund: " + reservation.customerName() +
-                        ", Antal gäster: " + reservation.numberOfGuests() +
-                        ", Datum: " + reservation.reservationDate());
+                reservationInfo.append("Kund: ").append(reservation.customerName())
+                        .append(", Antal gäster: ").append(reservation.numberOfGuests())
+                        .append(", Datum: ").append(reservation.reservationDate()).append("\n");
             }
+            showPopupDialog(reservationInfo.toString(), "Aktuella bokningar");
         }
+    }
+
+    private void showPopupDialog(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void messageDialog(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Restaurant restaurant = new Restaurant();
         ReadDB readDB = new ReadDB();
 
         while (true) {
-            System.out.println("Välkommen till bordsbokningssystemet!");
-            System.out.println("1. Gör en bokning");
-            System.out.println("2. Visa aktuella bokningar");
-            System.out.println("3. Ändra en bokning");
-            System.out.println("4. Ta bort en bokning");
-            System.out.println("5. Avsluta");
+            String[] options = {"Gör en bokning", "Visa aktuella bokningar", "Ändra en bokning", "Ta bort en bokning", "Avsluta"};
+            int choice = JOptionPane.showOptionDialog(null, "Välkommen till bordsbokningssystemet!", "Meny",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
-            // Felhantering för ogiltigt menyval
-            while (!scanner.hasNextInt()) {
-                System.out.println("Ogiltigt val. Vänligen försök igen.");
-                scanner.next(); // Rensa inmantningen
-            }
-            int choice = scanner.nextInt();
-
-            // Felhantering för namn
             switch (choice) {
-                case 1:
-                    System.out.print("Ange ditt namn: ");
-                    while (!scanner.hasNext("[a-zA-Z]+")) {
-                        System.out.println("Endast bokstäver tillåtna i namnet. Försök igen.");
-                        System.out.print("Ange ditt namn: ");
-                        scanner.next();
-                    }
-                    String customerName = scanner.next();
-
-                    // Lägg till begäran om telefonnummer och felhantering för endast siffror
-                    System.out.print("Ange ditt telefonnummer (endast siffror): ");
-                    while (!scanner.hasNext("[0-9]+")) {
-                            System.out.println("Ogiltigt telefonnummer. Ange endast siffror.");
-                            System.out.print("Ange ditt telefonnummer (endast siffror): ");
-                            scanner.next();
-                        }
-                    String phoneNumber = scanner.next();
-
-                    // Felhantering för antal gäster
-                    System.out.print("Ange antal gäster: ");
-                    while (!scanner.hasNextInt()) {
-                        System.out.println("Endast siffror. Försök igen.");
-                        System.out.print("Ange antal gäster: ");
-                        scanner.next();
-                    }
-                    int numberOfGuests = scanner.nextInt();
-
-                    // Felhantering för datum
-                    System.out.print("Ange datum för bokningen (YYYY-MM-DD): ");
-                    while (!scanner.hasNext("\\d{4}-\\d{2}-\\d{2}")) {
-                        System.out.println("Ogiltigt datum inskrivet. Försök igen.");
-                        System.out.print("Ange datum för bokningen (YYYY-MM-DD): ");
-                        scanner.next();
-                    }
-                    String reservationDate = scanner.next();
-
-                    // Felhantering för tid
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                    System.out.print("Ange tid för bokningen (HH:MM-HH:MM): ");
-                    while (!scanner.hasNext("\\d{2}:\\d{2}-\\d{2}:\\d{2}")) {
-                        System.out.println("Ogiltig tid inskriven. Försök igen.");
-                        System.out.print("Ange tid för bokningen (HH:MM): ");
-                        scanner.next();
-                    }
-                    String reservationTime = scanner.next();
-
+                case 0:
+                    String customerName = inputDialog("Ange ditt namn:");
+                    String phoneNumber = inputDialog("Ange ditt telefonnummer (endast siffror):");
+                    int numberOfGuests = Integer.parseInt(inputDialog("Ange antal gäster:"));
+                    String reservationDate = inputDialog("Ange datum för bokningen (YYYY-MM-DD):");
+                    String reservationTime = inputDialog("Ange tid för bokningen (HH:MM-HH:MM):");
                     restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, reservationDate, reservationTime);
                     break;
-                case 2:
-                    //restaurant.displayReservations();
-                    for (String i: readDB.selectAllBookingsSortedByDate()) {
-                        System.out.println(i);
-                    }
+                case 1:
+                    restaurant.displayReservations();
                     break;
-                case 3:
-                    System.out.print("Ange datum för bokningen som ska ändras (YYYY-MM-DD): ");
-                    String changeReservationDate = scanner.next();
-                    System.out.print("Ange nytt namn för kunden: ");
-                    String newCustomerName = scanner.next();
-                    System.out.print("Ange nytt antal gäster: ");
-                    int newNumberOfGuests = scanner.nextInt();
+                case 2:
+                    String changeReservationDate = inputDialog("Ange datum för bokningen som ska ändras (YYYY-MM-DD):");
+                    String newCustomerName = inputDialog("Ange nytt namn för kunden:");
+                    int newNumberOfGuests = Integer.parseInt(inputDialog("Ange nytt antal gäster:"));
                     restaurant.changeReservation(changeReservationDate, newCustomerName, newNumberOfGuests);
                     break;
-                case 4:
-                    System.out.print("Ange namnet på kunden vars bokning ska tas bort: ");
-                    String removeCustomerName = scanner.next();
+                case 3:
+                    String removeCustomerName = inputDialog("Ange namnet på kunden vars bokning ska tas bort:");
                     restaurant.removeReservation(removeCustomerName);
                     break;
-                case 5:
-                    System.out.println("Tack för att du använde bordsbokningssystemet. Hej då!");
+                case 4:
+                    JOptionPane.showMessageDialog(null, "Tack för att du använde bordsbokningssystemet. Hej då!");
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Ogiltigt val. Vänligen försök igen.");
+                    JOptionPane.showMessageDialog(null, "Ogiltigt val. Vänligen försök igen.");
             }
         }
+    }
+
+    private static String inputDialog(String message) {
+        return JOptionPane.showInputDialog(null, message);
     }
 }
