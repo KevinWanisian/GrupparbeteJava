@@ -39,7 +39,7 @@ public class ReadDB {
                 String id = String.valueOf(r.getInt("TableID"));
                 String seats = String.valueOf(r.getInt("Seats"));
 
-                lst_response.add(id + "\t" + "\t" + seats);
+                lst_response.add(STR."\{id}\t\t\{seats}");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -70,7 +70,7 @@ public class ReadDB {
                 String Time = r.getString("Time");
 
 
-                lst_response.add(BookingID + "\t" + Day + "\t" + Time + "\t" + TableID + "\t" + Guests + "\t" + Name + "\t\t" + Phone);
+                lst_response.add(STR."\{BookingID}\t\{Day}\t\{Time}\t\{TableID}\t\{Guests}\t\{Name}\t\t\{Phone}");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
