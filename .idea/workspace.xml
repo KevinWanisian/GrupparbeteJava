@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="La till messageDialog för att få popup-rutor till menyn." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +63,7 @@
       <updated>1704804906512</updated>
       <workItem from="1704962360463" duration="3285000" />
       <workItem from="1705320709702" duration="813000" />
-      <workItem from="1705396841576" duration="415000" />
+      <workItem from="1705396841576" duration="930000" />
     </task>
     <task id="LOCAL−00001" summary="La till en scanner för felhantering av antal gäster">
       <option name="closed" value="true" />
@@ -75,7 +72,14 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1704963041057</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="La till messageDialog för att få popup-rutor till menyn.">
+      <option name="closed" value="true" />
+      <created>1705397765496</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1705397765496</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,6 +98,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="La till en scanner för felhantering av antal gäster" />
-    <option name="LAST_COMMIT_MESSAGE" value="La till en scanner för felhantering av antal gäster" />
+    <MESSAGE value="La till messageDialog för att få popup-rutor till menyn." />
+    <option name="LAST_COMMIT_MESSAGE" value="La till messageDialog för att få popup-rutor till menyn." />
   </component>
 </project>
