@@ -54,12 +54,13 @@
     "Application.CreateDB.executor": "Run",
     "Application.GruppUppgift.executor": "Run",
     "Application.InsertDB.executor": "Run",
+    "Application.Main (1).executor": "Run",
+    "Application.Main (2).executor": "Run",
     "Application.Main.executor": "Run",
     "Application.ReadDB.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -77,7 +78,7 @@
       <recent name="C:\Users\Dell\IdeaProjects\GrupparbeteJava\src\main\java\org\example" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main (2)">
     <configuration name="CreateDB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.CreateDB" />
       <module name="GrupparbeteMaven" />
@@ -91,8 +92,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InsertDB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.InsertDB" />
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="GrupparbeteMaven" />
       <extension name="coverage">
         <pattern>
@@ -119,9 +146,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.InsertDB" />
-        <item itemvalue="Application.CreateDB" />
+        <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.ReadDB" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.CreateDB" />
       </list>
     </recent_temporary>
   </component>

@@ -42,10 +42,10 @@ public class Restaurant {
 
         public void displayReservations() {
             StringBuilder reservationInfo = new StringBuilder("Aktuella bokningar:\n");
-            for (String i : readDB.selectAllBookingsSortedByDate()) {
-                reservationInfo.append(i).append("\n");
-            }
-                showPopupDialog(reservationInfo.toString(), "Aktuella bokningar");
+            //for (String i : readDB.selectAllBookingsSortedByDate()) {
+            //    reservationInfo.append(i).append("\n");
+            //}
+                showPopupDialog(readDB.selectAllBookingsSortedByDate(), "Aktuella bokningar");
             }
 
 

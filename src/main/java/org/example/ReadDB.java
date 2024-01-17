@@ -14,13 +14,13 @@ public class ReadDB {
         ReadDB read = new ReadDB();
 
         // Printar ut innehållet i tabellen Tables
-        for (String i : read.selectAllFromTableTables()) {
-            System.out.println(i);
-        }
+        //for (String i : read.selectAllFromTableTables()) {
+        //    System.out.println(i);
+        //}
         // Printar ut alla bokningar i datumordning
-        for (String i: read.selectAllBookingsSortedByDate()) {
-            System.out.println(i);
-        }
+        //for (String i: read.selectAllBookingsSortedByDate()) {
+        //    System.out.println(i);
+        //}
     }
     // Skickar ett SELECT query till databasen
     // Returnerar en Arraylist med värdena i test tabellen
@@ -47,13 +47,23 @@ public class ReadDB {
         return lst_response;
     }
 
-    public ArrayList<String> selectAllBookingsSortedByDate() {
+    public String selectAllBookingsSortedByDate() {
         String query = "SELECT Bookings.BookingID, Bookings.Name, Bookings.Phone, Bookings.Guests,"
                 + "Tables.TableID, Bookings.Day, Bookings.Time FROM Bookings"
                 + " JOIN Tables ON Bookings.TableID = Tables.TableID"
                 + " ORDER BY Bookings.Day ASC, Bookings.Time ASC;";
-        ArrayList<String> lst_response = new ArrayList<String>();
-
+        // Skapar en html string för att skickas till Jpane för att visa datan som tabeller
+        String output = "<html><table>";
+        // Lägger till rubriker
+        output += """
+                  <tr>
+                  <td>Id</td>
+                  <td>Datum</td>
+                  <td>Tid</td>
+                  <td>Bord</td>
+                  <td>Antal</td>
+                  <td>Namn</td>
+                  <td>Telefon</tr>""";
         try {
             Connection kontakt = new GetConnection().kontakt(url);
             Statement cursor = kontakt.createStatement();
@@ -69,12 +79,19 @@ public class ReadDB {
                 String Day = r.getString("Day");
                 String Time = r.getString("Time");
 
-
-                lst_response.add(STR."\{BookingID}\t\{Day}\t\{Time}\t\{TableID}\t\{Guests}\t\{Name}\t\t\{Phone}");
+                // Lägger till alla värden i databasen i en html tabell
+                output += (STR."""
+                            <tr><td>\{BookingID}</td>
+                            <td>\{Day}</td>
+                            <td>\{Time}</td>
+                            <td>\{TableID}</td>
+                            <td>\{Guests}</td>
+                            <td>\{Name}</td>
+                            <td>\{Phone}</tr>""");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return lst_response;
+        return output;
     }
 }
