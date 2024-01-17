@@ -1,11 +1,8 @@
 package org.example;
 
-import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-record Reservation(String customerName, String phoneNumber, int numberOfGuests, String reservationDate, String reservationTime) {}
+record Reservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {}
 
 public class Main {
     public static void main(String[] args) {
@@ -33,8 +30,17 @@ public class Main {
                     int numberOfGuests = Integer.parseInt(inputDialog("Ange antal gäster:"));
                     String reservationDate = inputDialog("Ange datum för bokningen (YYYY-MM-DD):");
                     String reservationTime = inputDialog("Ange tid för bokningen (HH:MM-HH:MM):");
-                    restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, reservationDate, reservationTime);
-                    break;
+
+                    // Kollar om det finns ett tillgängligt bord det datumet och den tiden
+                    if (CheckDB.CheckBooking(reservationDate, reservationTime) == null) {
+                        JOptionPane.showMessageDialog(null, "Inga bord lediga.");
+                        break;}
+                    else {
+                        int tableID = CheckDB.CheckBooking(reservationDate, reservationTime);
+                        restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
+                        break;
+                }
+
                 case 1:
                     restaurant.displayReservations();
                     break;

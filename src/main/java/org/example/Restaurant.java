@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class Restaurant {
         private final ArrayList<Reservation> reservations = new ArrayList<>();
         ReadDB readDB = new ReadDB();
-        public void makeReservation(String customerName, String phoneNumber, int numberOfGuests, String reservationDate, String reservationTime) {
+        public void makeReservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {
             // För att koppla till databas: Ersätt hårdkodade delar med nya parametrar
             InsertDB insertDB = new InsertDB();
-            insertDB.InsertIntoTableBookings(customerName, phoneNumber, numberOfGuests, 5, reservationDate, reservationTime);
+            insertDB.InsertIntoTableBookings(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
             // Tidigare kod
-            Reservation reservation = new Reservation(customerName, phoneNumber, numberOfGuests, reservationDate, reservationTime);
+            Reservation reservation = new Reservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
             reservations.add(reservation);
             messageDialog("Bokning skapad för " + customerName + " på " + reservationDate);
         }
@@ -31,7 +31,8 @@ public class Restaurant {
             for (int i = 0; i < reservations.size(); i++) {
                 Reservation reservation = reservations.get(i);
                 if (reservation.reservationDate().equals(reservationDate)) {
-                    Reservation updatedReservation = new Reservation(newCustomerName, reservation.phoneNumber(), newNumberOfGuests, reservationDate, reservation.reservationTime());
+                    int tableID = 1;
+                    Reservation updatedReservation = new Reservation(newCustomerName, reservation.phoneNumber(), newNumberOfGuests, tableID, reservationDate, reservation.reservationTime());
                     reservations.set(i, updatedReservation);
                     messageDialog("Bokningen ändrad för " + newCustomerName + " på " + reservationDate);
                     return;
