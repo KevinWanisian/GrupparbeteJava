@@ -47,7 +47,7 @@ public class ReadDB {
         return lst_response;
     }
 
-    public String selectAllBookingsSortedByDate() {
+    static String selectAllBookingsSortedByDate() {
         String query = "SELECT Bookings.BookingID, Bookings.Name, Bookings.Phone, Bookings.Guests,"
                 + "Tables.TableID, Bookings.Day, Bookings.Time FROM Bookings"
                 + " JOIN Tables ON Bookings.TableID = Tables.TableID"

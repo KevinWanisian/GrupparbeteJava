@@ -25,21 +25,25 @@ public class Main {
                             restaurant.showPopupDialog("Endast bokstäver tillåtna i namnet.", "Fel inmatning.");
                         }
                     }
+                    try {
+                        String phoneNumber = inputDialog("Ange ditt telefonnummer (endast siffror):");
+                        int numberOfGuests = Integer.parseInt(inputDialog("Ange antal gäster:"));
+                        String reservationDate = inputDialog("Ange datum för bokningen (YYYY-MM-DD):");
+                        String reservationTime = inputDialog("Ange tid för bokningen (HH:MM-HH:MM):");
 
-                    String phoneNumber = inputDialog("Ange ditt telefonnummer (endast siffror):");
-                    int numberOfGuests = Integer.parseInt(inputDialog("Ange antal gäster:"));
-                    String reservationDate = inputDialog("Ange datum för bokningen (YYYY-MM-DD):");
-                    String reservationTime = inputDialog("Ange tid för bokningen (HH:MM-HH:MM):");
-
-                    // Kollar om det finns ett tillgängligt bord det datumet och den tiden
-                    if (CheckDB.CheckBooking(reservationDate, reservationTime) == null) {
-                        JOptionPane.showMessageDialog(null, "Inga bord lediga.");
-                        break;}
-                    else {
-                        int tableID = CheckDB.CheckBooking(reservationDate, reservationTime);
-                        restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
+                        // Kollar om det finns ett tillgängligt bord det datumet och den tiden
+                        if (CheckDB.CheckBooking(reservationDate, reservationTime) == null) {
+                            JOptionPane.showMessageDialog(null, "Inga bord lediga.");
+                            break;}
+                        else {
+                            int tableID = CheckDB.CheckBooking(reservationDate, reservationTime);
+                            restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
+                            break;
+                        }
+                    } catch (Exception e) {
+                        restaurant.showPopupDialog("Felaktig inmatning\nBokningen avbryts", "Fel inmatning.");
                         break;
-                }
+                    }
 
                 case 1:
                     restaurant.displayReservations();
@@ -51,8 +55,14 @@ public class Main {
                     restaurant.changeReservation(changeReservationDate, newCustomerName, newNumberOfGuests);
                     break;
                 case 3:
-                    String removeCustomerName = inputDialog("Ange namnet på kunden vars bokning ska tas bort:");
-                    restaurant.removeReservation(removeCustomerName);
+                    try{
+                        int bookingID = Integer.parseInt(inputDialog("Ange id nummer på bokning som ska tas bort:"));
+                        String output = restaurant.removeReservation(bookingID);
+                        restaurant.showPopupDialog(output, "Ta bort bokning");
+                    } catch (Exception e) {
+                        restaurant.showPopupDialog("Felaktig inmatning", "Fel inmatning.");
+                        break;
+                    }
                     break;
                 case 4:
                     JOptionPane.showMessageDialog(null, "Tack för att du använde bordsbokningssystemet. Hej då!");

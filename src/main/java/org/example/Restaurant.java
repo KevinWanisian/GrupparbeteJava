@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Restaurant {
         private final ArrayList<Reservation> reservations = new ArrayList<>();
-        ReadDB readDB = new ReadDB();
+
         public void makeReservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {
             // För att koppla till databas: Ersätt hårdkodade delar med nya parametrar
             InsertDB insertDB = new InsertDB();
@@ -16,15 +16,16 @@ public class Restaurant {
             messageDialog("Bokning skapad för " + customerName + " på " + reservationDate);
         }
 
-        public void removeReservation(String customerName) {
-            for (int i = 0; i < reservations.size(); i++) {
+        public String removeReservation(int id) {
+            return DeleteRow.deleteRowFromTable(id);
+/*            for (int i = 0; i < reservations.size(); i++) {
                 if (reservations.get(i).customerName().equals(customerName)) {
                     reservations.remove(i);
                     messageDialog("Bokningen för " + customerName + " har tagits bort.");
                     return;
                 }
             }
-            messageDialog("Ingen bokning hittades för " + customerName);
+            messageDialog("Ingen bokning hittades för " + customerName);*/
         }
 
         public void changeReservation(String reservationDate, String newCustomerName, int newNumberOfGuests) {
@@ -46,7 +47,7 @@ public class Restaurant {
             //for (String i : readDB.selectAllBookingsSortedByDate()) {
             //    reservationInfo.append(i).append("\n");
             //}
-                showPopupDialog(readDB.selectAllBookingsSortedByDate(), "Aktuella bokningar");
+                showPopupDialog(ReadDB.selectAllBookingsSortedByDate(), "Aktuella bokningar");
             }
 
 
