@@ -28,8 +28,9 @@ public class Restaurant {
             messageDialog("Ingen bokning hittades för " + customerName);*/
         }
 
-        public void changeReservation(String reservationDate, String newCustomerName, int newNumberOfGuests) {
-            for (int i = 0; i < reservations.size(); i++) {
+        public void changeReservation(int id, String newCustomerName, String phone, int newNumberOfGuests) {
+            UpdateRow.updateRowFromTable(id, newCustomerName, phone, newNumberOfGuests);
+/*            for (int i = 0; i < reservations.size(); i++) {
                 Reservation reservation = reservations.get(i);
                 if (reservation.reservationDate().equals(reservationDate)) {
                     int tableID = 1;
@@ -39,7 +40,7 @@ public class Restaurant {
                     return;
                 }
             }
-            messageDialog("Ingen bokning hittades för datumet " + reservationDate);
+            messageDialog("Ingen bokning hittades för datumet " + reservationDate);*/
         }
 
         public void displayReservations() {
