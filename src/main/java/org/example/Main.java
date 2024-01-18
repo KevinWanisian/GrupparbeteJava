@@ -49,10 +49,16 @@ public class Main {
                     restaurant.displayReservations();
                     break;
                 case 2:
-                    String changeReservationDate = inputDialog("Ange datum för bokningen som ska ändras (YYYY-MM-DD):");
-                    String newCustomerName = inputDialog("Ange nytt namn för kunden:");
-                    int newNumberOfGuests = Integer.parseInt(inputDialog("Ange nytt antal gäster:"));
-                    restaurant.changeReservation(changeReservationDate, newCustomerName, newNumberOfGuests);
+                    try {
+                        int id = Integer.parseInt(inputDialog("Ange id för bokning som ska ändras:"));
+                        String newCustomerName = inputDialog("Ange nytt namn för kunden:");
+                        String newPhone = inputDialog("Ange nytt telefonnummer:");
+                        int newNumberOfGuests = Integer.parseInt(inputDialog("Ange nytt antal gäster:"));
+                        restaurant.changeReservation(id, newCustomerName, newPhone, newNumberOfGuests);
+                    } catch (Exception e) {
+                        restaurant.showPopupDialog("Felaktig inmatning\nUppdateringen avbryts", "Fel inmatning.");
+                        break;
+                    }
                     break;
                 case 3:
                     try{
