@@ -18,37 +18,16 @@ public class Restaurant {
 
         public String removeReservation(int id) {
             return DeleteRow.deleteRowFromTable(id);
-/*            for (int i = 0; i < reservations.size(); i++) {
-                if (reservations.get(i).customerName().equals(customerName)) {
-                    reservations.remove(i);
-                    messageDialog("Bokningen för " + customerName + " har tagits bort.");
-                    return;
-                }
-            }
-            messageDialog("Ingen bokning hittades för " + customerName);*/
         }
 
-        public void changeReservation(int id, String newCustomerName, String phone, int newNumberOfGuests) {
-            UpdateRow.updateRowFromTable(id, newCustomerName, phone, newNumberOfGuests);
-/*            for (int i = 0; i < reservations.size(); i++) {
-                Reservation reservation = reservations.get(i);
-                if (reservation.reservationDate().equals(reservationDate)) {
-                    int tableID = 1;
-                    Reservation updatedReservation = new Reservation(newCustomerName, reservation.phoneNumber(), newNumberOfGuests, tableID, reservationDate, reservation.reservationTime());
-                    reservations.set(i, updatedReservation);
-                    messageDialog("Bokningen ändrad för " + newCustomerName + " på " + reservationDate);
-                    return;
-                }
-            }
-            messageDialog("Ingen bokning hittades för datumet " + reservationDate);*/
+        public String changeReservation(int id, String newCustomerName, String phone, int newNumberOfGuests) {
+            return UpdateRow.updateRowFromTable(id, newCustomerName, phone, newNumberOfGuests);
         }
 
         public void displayReservations() {
             StringBuilder reservationInfo = new StringBuilder("Aktuella bokningar:\n");
-            //for (String i : readDB.selectAllBookingsSortedByDate()) {
-            //    reservationInfo.append(i).append("\n");
-            //}
-                showPopupDialog(ReadDB.selectAllBookingsSortedByDate(), "Aktuella bokningar");
+
+            showPopupDialog(ReadDB.selectAllBookingsSortedByDate(), "Aktuella bokningar");
             }
 
 

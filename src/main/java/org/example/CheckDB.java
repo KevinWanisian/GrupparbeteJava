@@ -7,13 +7,6 @@ import java.util.Collections;
 public class CheckDB {
     static String url = CreateDB.url;
 
-    public static void main(String[] args) {
-        // Test exempel
-        //System.out.println(CheckDB.CheckBooking("2024-01-27", "17:00-19:00"));
-        //System.out.println(CheckDB.CheckBooking("2024-01-28", "19:00-21:00"));
-
-    }
-
     public static Integer CheckBooking(String date, String time) {
         String query = "SELECT Day, Time, TableID FROM Bookings WHERE Day = ? AND Time = ?";
         ArrayList<Integer> response = new ArrayList<Integer>();
@@ -44,5 +37,27 @@ public class CheckDB {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    static Boolean getID(int id, Connection kontakt) {
+        String query = "SELECT * FROM Bookings WHERE Bookingid = ?";
+
+        try {
+            PreparedStatement cursor = kontakt.prepareStatement(query);
+            cursor.setInt(1, id);
+
+            ResultSet r = cursor.executeQuery();
+
+            // Hämtar TableID från de bokningar som är det aktuella datumet och tiden och sorterar dem i nummerordni
+            int tableID = r.getInt("TableID");
+
+            if (tableID != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }

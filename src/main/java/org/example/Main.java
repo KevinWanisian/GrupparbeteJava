@@ -54,7 +54,8 @@ public class Main {
                         String newCustomerName = inputDialog("Ange nytt namn för kunden:");
                         String newPhone = inputDialog("Ange nytt telefonnummer:");
                         int newNumberOfGuests = Integer.parseInt(inputDialog("Ange nytt antal gäster:"));
-                        restaurant.changeReservation(id, newCustomerName, newPhone, newNumberOfGuests);
+                        String output = restaurant.changeReservation(id, newCustomerName, newPhone, newNumberOfGuests);
+                        restaurant.showPopupDialog(output, "Ändra bokning");
                     } catch (Exception e) {
                         restaurant.showPopupDialog("Felaktig inmatning\nUppdateringen avbryts", "Fel inmatning.");
                         break;
@@ -79,11 +80,7 @@ public class Main {
             }
         }
     }
-
     private static String inputDialog(String message) {
         return JOptionPane.showInputDialog(null, message);
-    }
-
-    public void main() {
     }
 }

@@ -12,15 +12,6 @@ public class ReadDB {
     static String url = CreateDB.url;
     public static void main (String[] args){
         ReadDB read = new ReadDB();
-
-        // Printar ut innehållet i tabellen Tables
-        //for (String i : read.selectAllFromTableTables()) {
-        //    System.out.println(i);
-        //}
-        // Printar ut alla bokningar i datumordning
-        //for (String i: read.selectAllBookingsSortedByDate()) {
-        //    System.out.println(i);
-        //}
     }
     // Skickar ett SELECT query till databasen
     // Returnerar en Arraylist med värdena i test tabellen

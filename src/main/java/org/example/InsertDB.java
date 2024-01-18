@@ -8,11 +8,6 @@ public class InsertDB {
     static String url = CreateDB.url;
     public static void main(String[] args) {
         InsertDB add = new InsertDB();
-        //add.InsertIntoTableTables(4);
-        //add.InsertIntoTableTables(4);
-        //add.InsertIntoTableTables(4);
-        //add.InsertIntoTableTables(4);
-        //add.InsertIntoTableTables(4);
         add.InsertIntoTableBookings("Nalle Puh", "070 777 88 99", 3, 5,"2024-01-27", "17:00-19:00");
         add.InsertIntoTableBookings("Robin Hood", "070 888 55 22",4, 1, "2024-01-28", "19:00-21:00");
         add.InsertIntoTableBookings("Riddar Kato", "070 444 55 66", 2,1,"2024-01-26", "21:00-23:00");

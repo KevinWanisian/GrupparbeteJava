@@ -12,25 +12,19 @@ public class DeleteRow {
     static String deleteRowFromTable(int id) {
         String query = "DELETE FROM Bookings WHERE BookingID = ? ";
 
-        // Kollar ursprunlig storlek på databasen
-        int preSize = ReadDB.selectAllBookingsSortedByDate().length();
-
         try {
             // Utför queryt
             Connection kontakt = new GetConnection().kontakt(url);
+            if (!CheckDB.getID(id, kontakt)) {
+                return "Okänt Id";
+            }
             PreparedStatement cursor = kontakt.prepareStatement(query);
             cursor.setInt(1, id);
             cursor.executeUpdate();
 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        // Jämför storleken på databasen efter queryt
-        int currSize = ReadDB.selectAllBookingsSortedByDate().length();
-        if (currSize < preSize) {
-            return "Bokning borttagen";
-        } else {
-            return "Okänt Id";
-        }
+        return "Bokning borttagen";
     }
 }
