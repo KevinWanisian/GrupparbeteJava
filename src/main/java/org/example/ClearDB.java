@@ -16,7 +16,7 @@ public class ClearDB {
             //ClearTableBookings();
         }
 
-        static void DeleteTableTables() {
+        static boolean DeleteTableTables() {
             // SQL koden som skickas till databasen
             // Bords-tabell
             String query = "DROP TABLE Tables";
@@ -26,12 +26,14 @@ public class ClearDB {
                 Statement cursor = kontakt.createStatement(); // Typ samma som cursor i python
                 cursor.execute(query); // Skickar sql queryt till databasen
                 System.out.println("Table-tabell borttagen");
+                return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                return false;
             }
         }
 
-        static void DeleteTableBookings() {
+        static boolean DeleteTableBookings() {
             // SQL koden som skickas till databasen
             // Bords-tabell
             String query = "DROP TABLE Bookings";
@@ -41,12 +43,14 @@ public class ClearDB {
                 Statement cursor = kontakt.createStatement(); // Typ samma som cursor i python
                 cursor.execute(query); // Skickar sql queryt till databasen
                 System.out.println("Bookings-tabell borttagen");
+                return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                return false;
             }
         }
 
-        static void ClearTableTables() {
+        static boolean ClearTableTables() {
             // SQL koden som skickas till databasen
             // Bords-tabell
             String query = "DELETE FROM Tables";
@@ -56,12 +60,14 @@ public class ClearDB {
                 Statement cursor = kontakt.createStatement(); // Typ samma som cursor i python
                 cursor.execute(query); // Skickar sql queryt till databasen
                 System.out.println("Table-tabell rensad");
+                return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                return false;
             }
         }
 
-        static void ClearTableBookings() {
+        static boolean ClearTableBookings() {
             // SQL koden som skickas till databasen
             // Bords-tabell
             String query = "DELETE FROM Bookings";
@@ -71,8 +77,10 @@ public class ClearDB {
                 Statement cursor = kontakt.createStatement(); // Typ samma som cursor i python
                 cursor.execute(query); // Skickar sql queryt till databasen
                 System.out.println("Bookings-tabell rensad");
+                return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                return false;
             }
         }
 
