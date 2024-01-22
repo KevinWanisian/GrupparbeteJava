@@ -16,7 +16,7 @@ public class CreateDBTest {
     static String testFilename = "test_bookingsystem.db";
     static String testUrl = "jdbc:sqlite:src/test/java/org/example/" + testFilename;
 
-    @BeforeAll
+    @BeforeAll //Before all krävs fär att skapa tabeller innan testet körs
     static void setUp() {
         // Skapa en temporär databas för testning
         CreateDB.url = testUrl;
