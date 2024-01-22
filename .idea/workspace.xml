@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="La till en scanner för felhantering av antal gäster">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/DeleteRowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-15_13_10__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-15_13_10__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-16_10_44__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-16_10_44__Changes_.xml" afterDir="false" />
+    <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="REadDB fixad">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DeleteRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DeleteRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/InsertDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/InsertDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReadDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReadDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Restaurant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/UpdateRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/UpdateRow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bookingsystem.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/bookingsystem.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/CheckDBTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/MainTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +27,6 @@
       </list>
     </option>
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -36,27 +35,8 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
-    {
-      "searchQuery": "main",
-      "state": "OPEN",
-      "assignee": "MartinLindbergg"
-    }
-  ],
-  "lastFilter": {
-    "searchQuery": "main",
-    "state": "OPEN",
-    "assignee": "MartinLindbergg"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="7b7a0592-e74f-48db-a091-8cd136924a12" />
-        <option name="url" value="https://github.com/KevinWanisian/GrupparbeteJava.git" />
-      </UrlAndAccount>
-    </option>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -70,23 +50,114 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DeleteRowTest.executor": "Run",
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Martin",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ClearDB.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CreateDB.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GruppUppgift.executor&quot;: &quot;Run&quot;,
+    &quot;Application.InsertDB.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main (2).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ReadDB.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dell\IdeaProjects\GrupparbeteJava\src\main\java\org\example" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.MainTest" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReadDB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.ReadDB" />
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MainTest" />
+        <item itemvalue="Application.ReadDB" />
+        <item itemvalue="Application.Main (2)" />
+        <item itemvalue="Application.Main (1)" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -102,14 +173,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704804906512</updated>
-      <workItem from="1704962360463" duration="3285000" />
+      <workItem from="1704807289712" duration="12302000" />
+      <workItem from="1704903453568" duration="4561000" />
+      <workItem from="1705412179736" duration="5507000" />
+      <workItem from="1705518797255" duration="4586000" />
+      <workItem from="1705582465550" duration="777000" />
     </task>
-    <task id="LOCAL−00001" summary="La till en scanner för felhantering av antal gäster">
+    <task id="LOCAL−00001" summary="La till klasser för att hantera sql queries">
       <option name="closed" value="true" />
-      <created>1704963041057</created>
+      <created>1704836962561</created>
       <option name="number" value="LOCAL−00001" />
       <option name="presentableId" value="LOCAL−00001" />
-      <updated>1704963041057</updated>
+      <updated>1704836962561</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -117,19 +192,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="La till en scanner för felhantering av antal gäster" />
-    <option name="LAST_COMMIT_MESSAGE" value="La till en scanner för felhantering av antal gäster" />
+    <MESSAGE value="La till klasser för att hantera sql queries" />
+    <MESSAGE value="REadDB fixad" />
+    <option name="LAST_COMMIT_MESSAGE" value="REadDB fixad" />
   </component>
 </project>
