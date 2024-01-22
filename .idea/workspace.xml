@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="La till en scanner för felhantering av antal gäster">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/DeleteRowTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/UpdateRowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-19_09_13__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-19_09_13__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DeleteRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DeleteRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReadDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReadDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Reservationigen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/UpdateRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/UpdateRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bookingsystem.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/bookingsystem.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/ClearDBTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/ClearDBTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +79,9 @@
     "Application.Main.executor": "Run",
     "Application.MainTest.executor": "Run",
     "JUnit.CheckDBTest.executor": "Run",
+    "JUnit.CreateDBTest.executor": "Run",
+    "JUnit.UpdateRowTest.executor": "Run",
+    "JUnit.UpdateRowTest.testUpdateRow.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -83,48 +95,9 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="GrupparbeteMaven" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="GrupparbeteMaven" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="GrupparbeteMaven" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.MainTest" />
       <module name="GrupparbeteMaven" />
       <extension name="coverage">
         <pattern>
@@ -149,13 +122,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CreateDBTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.CreateDBTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UpdateRowTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.UpdateRowTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UpdateRowTest.testUpdateRow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GrupparbeteMaven" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.UpdateRowTest" />
+      <option name="METHOD_NAME" value="testUpdateRow" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.UpdateRowTest" />
+        <item itemvalue="JUnit.UpdateRowTest.testUpdateRow" />
+        <item itemvalue="JUnit.CreateDBTest" />
         <item itemvalue="Application.ReadDB" />
-        <item itemvalue="Application.MainTest" />
-        <item itemvalue="Application.Main (2)" />
-        <item itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -175,6 +194,10 @@
       <option name="presentableId" value="Default" />
       <updated>1704804906512</updated>
       <workItem from="1704962360463" duration="3285000" />
+      <workItem from="1705910534570" duration="648000" />
+      <workItem from="1705911203494" duration="1667000" />
+      <workItem from="1705922626222" duration="2664000" />
+      <workItem from="1705925311568" duration="5437000" />
     </task>
     <task id="LOCAL−00001" summary="La till en scanner för felhantering av antal gäster">
       <option name="closed" value="true" />

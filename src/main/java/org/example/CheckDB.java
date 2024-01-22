@@ -38,7 +38,7 @@ public class CheckDB {
         }
         return null;
     }
-    static Boolean getID(int id, Connection kontakt) {
+    public static Boolean getID(int id, Connection kontakt) {
         String query = "SELECT * FROM Bookings WHERE Bookingid = ?";
 
         try {
@@ -49,12 +49,13 @@ public class CheckDB {
 
             // Hämtar TableID från de bokningar som är det aktuella datumet och tiden och sorterar dem i nummerordni
             int tableID = r.getInt("TableID");
-
+            cursor.close();
             if (tableID != 0) {
                 return true;
             } else {
                 return false;
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

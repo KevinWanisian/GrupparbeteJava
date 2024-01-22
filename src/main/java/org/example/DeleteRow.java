@@ -9,7 +9,7 @@ public class DeleteRow {
 
     // Tar bort en rad från databasen baserat på id nummer
     // Returnerar rad som indikerar ifall queryt har gjort någon skillnad
-    static String deleteRowFromTable(int id) {
+    public static String deleteRowFromTable(int id) {
         String query = "DELETE FROM Bookings WHERE BookingID = ? ";
 
         try {
@@ -21,6 +21,7 @@ public class DeleteRow {
             PreparedStatement cursor = kontakt.prepareStatement(query);
             cursor.setInt(1, id);
             cursor.executeUpdate();
+            cursor.close();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

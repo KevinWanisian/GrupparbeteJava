@@ -8,7 +8,7 @@ public class UpdateRow {
 
     // Uppdaterar en rad från databasen baserat på id nummer
     // Returnerar rad som indikerar ifall queryt har gjort någon skillnad
-    static String updateRowFromTable(int id, String name, String phone, int number) {
+    public static String updateRowFromTable(int id, String name, String phone, int number) {
         String query = """                        
                 UPDATE Bookings 
                         SET Name = ?, Phone = ?, Guests = ?
@@ -26,6 +26,7 @@ public class UpdateRow {
             cursor.setInt(3, number);
             cursor.setInt(4, id);
             cursor.executeUpdate();
+            cursor.close();
             return "Ändring utförd";
         } catch (Exception e) {
             System.out.println(e.getMessage());
