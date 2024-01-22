@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2024-01-21_15_07_[Changes]" date="1705846025239" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-21_15_07_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2024-01-21 15:07 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/java/org/example/bookingsystem.db" />
+    <option name="AFTER_PATH" value="src/main/java/org/example/bookingsystem.db" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-21_15_07_[Changes]/bookingsystem.db" />
+  </binary>
+</changelist>

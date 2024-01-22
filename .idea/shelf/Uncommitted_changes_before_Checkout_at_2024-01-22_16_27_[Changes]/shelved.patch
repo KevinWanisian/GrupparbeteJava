@@ -1,0 +1,42 @@
+Index: src/test/java/org/example/ClearDBTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport org.junit.After;\r\nimport org.junit.Before;\r\nimport org.junit.Test;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.SQLException;\r\n\r\nimport static org.junit.Assert.assertTrue;\r\n\r\npublic class ClearDBTest {\r\n    private static final String url = \"jdbc:sqlite:src/main/java/org/example/bookingsystem.db\";\r\n    private Connection connection;\r\n    private ClearDB clearDB;\r\n\r\n    @Before\r\n    public void setUp() throws SQLException {\r\n        connection = GetConnection.kontakt(url);\r\n        connection.setAutoCommit(false);\r\n        clearDB = new ClearDB(connection);\r\n    }\r\n\r\n    @After\r\n    public void tearDown() throws SQLException {\r\n        // Rulla tillbaka transaktionen efter varje test\r\n        connection.rollback();\r\n        connection.close();\r\n    }\r\n\r\n    @Test\r\n    public void testDeleteTableTables() {\r\n        assertTrue(clearDB.DeleteTableTables());\r\n    }\r\n\r\n    @Test\r\n    public void testDeleteTableBookings() {\r\n        assertTrue(clearDB.DeleteTableBookings());\r\n    }\r\n\r\n    @Test\r\n    public void testClearTableTables() {\r\n        assertTrue(clearDB.ClearTableTables());\r\n    }\r\n\r\n    @Test\r\n    public void testClearTableBookings() {\r\n        assertTrue(clearDB.ClearTableBookings());\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/test/java/org/example/ClearDBTest.java b/src/test/java/org/example/ClearDBTest.java
+--- a/src/test/java/org/example/ClearDBTest.java	
++++ b/src/test/java/org/example/ClearDBTest.java	
+@@ -1,27 +1,26 @@
+ package org.example;
+ 
+-import org.junit.After;
+-import org.junit.Before;
+-import org.junit.Test;
+-
++import org.junit.jupiter.api.AfterEach;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
+ import java.sql.Connection;
+ import java.sql.SQLException;
+ 
+-import static org.junit.Assert.assertTrue;
++import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ public class ClearDBTest {
+     private static final String url = "jdbc:sqlite:src/main/java/org/example/bookingsystem.db";
+     private Connection connection;
+     private ClearDB clearDB;
+ 
+-    @Before
++    @BeforeEach
+     public void setUp() throws SQLException {
+         connection = GetConnection.kontakt(url);
+         connection.setAutoCommit(false);
+         clearDB = new ClearDB(connection);
+     }
+ 
+-    @After
++    @AfterEach
+     public void tearDown() throws SQLException {
+         // Rulla tillbaka transaktionen efter varje test
+         connection.rollback();

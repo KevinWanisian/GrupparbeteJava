@@ -1,0 +1,130 @@
+Index: src/test/java/org/example/DeleteRowTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\npublic class DeleteRowTest {\r\n\r\n    public static void main(String[] args) {\r\n        testDeleteRowFromTable();\r\n    }\r\n\r\n    public static void testDeleteRowFromTable() {\r\n        // Skapade en ny bokning som fick BookID 53 (så jag är säker på att 53 finns som ID)\r\n        int existingBookingId = 53;\r\n\r\n        // Testa att bokningen tas bort och returnerar \"Bokning borttagen\"\r\n        String result = DeleteRow.deleteRowFromTable(existingBookingId);\r\n        assert result.equals(\"Bokning borttagen\") : \"Test failed: Expected 'Bokning borttagen', got \" + result;\r\n\r\n        // Anta att BookingID 100 inte finns i databasen\r\n        int nonExistingBookingId = 100;\r\n\r\n        // Testa att returnera \"Okänt Id\" om bokningen inte finns\r\n        result = DeleteRow.deleteRowFromTable(nonExistingBookingId);\r\n        assert result.equals(\"Okänt Id\") : \"Test failed: Expected 'Okänt Id', got \" + result;\r\n\r\n        // Om inga Errors dyker upp, så är testet lyckat\r\n        System.out.println(\"Alla tester genomförda utan fel.\");\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/example/DeleteRowTest.java b/src/test/java/org/example/DeleteRowTest.java
+--- a/src/test/java/org/example/DeleteRowTest.java	(revision 438c41d0498910f3d7eff530c52b45778dae4ae4)
++++ b/src/test/java/org/example/DeleteRowTest.java	(date 1705653529728)
+@@ -23,4 +23,4 @@
+         // Om inga Errors dyker upp, så är testet lyckat
+         System.out.println("Alla tester genomförda utan fel.");
+     }
+-}
+\ No newline at end of file
++}
+Index: src/main/java/org/example/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport javax.swing.JOptionPane;\r\n\r\nrecord Reservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {}\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        Restaurant restaurant = new Restaurant();\r\n\r\n        while (true) {\r\n            String[] options = {\"Gör en bokning\", \"Visa aktuella bokningar\", \"Ändra en bokning\", \"Ta bort en bokning\", \"Avsluta\"};\r\n            int choice = JOptionPane.showOptionDialog(null, \"Välkommen till bordsbokningssystemet!\", \"Meny\",\r\n                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);\r\n\r\n            String customerName = null;\r\n            switch (choice) {\r\n                case 0:\r\n                    // Felhantering för namn\r\n                    while (true) {\r\n                        customerName = inputDialog(\"Ange ditt namn:\");\r\n                        if (customerName.matches(\"[a-zA-ZåäöÅÄÖ ]+\")) {\r\n                            break;\r\n                        } else {\r\n                            restaurant.showPopupDialog(\"Endast bokstäver tillåtna i namnet.\", \"Fel inmatning.\");\r\n                        }\r\n                    }\r\n                    try {\r\n                        String phoneNumber = inputDialog(\"Ange ditt telefonnummer (endast siffror):\");\r\n                        int numberOfGuests = Integer.parseInt(inputDialog(\"Ange antal gäster:\"));\r\n                        String reservationDate = inputDialog(\"Ange datum för bokningen (YYYY-MM-DD):\");\r\n                        String reservationTime = inputDialog(\"Ange tid för bokningen (HH:MM-HH:MM):\");\r\n\r\n                        // Kollar om det finns ett tillgängligt bord det datumet och den tiden\r\n                        if (CheckDB.CheckBooking(reservationDate, reservationTime) == null) {\r\n                            JOptionPane.showMessageDialog(null, \"Inga bord lediga.\");\r\n                            break;}\r\n                        else {\r\n                            int tableID = CheckDB.CheckBooking(reservationDate, reservationTime);\r\n                            restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);\r\n                            break;\r\n                        }\r\n                    } catch (Exception e) {\r\n                        restaurant.showPopupDialog(\"Felaktig inmatning\\nBokningen avbryts\", \"Fel inmatning.\");\r\n                        break;\r\n                    }\r\n\r\n                case 1:\r\n                    restaurant.displayReservations();\r\n                    break;\r\n                case 2:\r\n                    try {\r\n                        int id = Integer.parseInt(inputDialog(\"Ange id för bokning som ska ändras:\"));\r\n                        String newCustomerName = inputDialog(\"Ange nytt namn för kunden:\");\r\n                        String newPhone = inputDialog(\"Ange nytt telefonnummer:\");\r\n                        int newNumberOfGuests = Integer.parseInt(inputDialog(\"Ange nytt antal gäster:\"));\r\n                        String output = restaurant.changeReservation(id, newCustomerName, newPhone, newNumberOfGuests);\r\n                        restaurant.showPopupDialog(output, \"Ändra bokning\");\r\n                    } catch (Exception e) {\r\n                        restaurant.showPopupDialog(\"Felaktig inmatning\\nUppdateringen avbryts\", \"Fel inmatning.\");\r\n                        break;\r\n                    }\r\n                    break;\r\n                case 3:\r\n                    try{\r\n                        int bookingID = Integer.parseInt(inputDialog(\"Ange id nummer på bokning som ska tas bort:\"));\r\n                        String output = restaurant.removeReservation(bookingID);\r\n                        restaurant.showPopupDialog(output, \"Ta bort bokning\");\r\n                    } catch (Exception e) {\r\n                        restaurant.showPopupDialog(\"Felaktig inmatning\", \"Fel inmatning.\");\r\n                        break;\r\n                    }\r\n                    break;\r\n                case 4:\r\n                    JOptionPane.showMessageDialog(null, \"Tack för att du använde bordsbokningssystemet. Hej då!\");\r\n                    System.exit(0);\r\n                    break;\r\n                default:\r\n                    JOptionPane.showMessageDialog(null, \"Ogiltigt val. Vänligen försök igen.\");\r\n            }\r\n        }\r\n    }\r\n    private static String inputDialog(String message) {\r\n        return JOptionPane.showInputDialog(null, message);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+--- a/src/main/java/org/example/Main.java	(revision 438c41d0498910f3d7eff530c52b45778dae4ae4)
++++ b/src/main/java/org/example/Main.java	(date 1705652927404)
+@@ -83,4 +83,4 @@
+     private static String inputDialog(String message) {
+         return JOptionPane.showInputDialog(null, message);
+     }
+-}
+\ No newline at end of file
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"24515563-6674-4cce-839f-df907eea15af\" name=\"Changes\" comment=\"La till en scanner för felhantering av antal gäster\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/test/java/org/example/DeleteRowTest.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Merge.Settings\">\r\n    <option name=\"BRANCH\" value=\"origin/main\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Martin\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;history&quot;: [\r\n    {\r\n      &quot;searchQuery&quot;: &quot;main&quot;,\r\n      &quot;state&quot;: &quot;OPEN&quot;,\r\n      &quot;assignee&quot;: &quot;MartinLindbergg&quot;\r\n    }\r\n  ],\r\n  &quot;lastFilter&quot;: {\r\n    &quot;searchQuery&quot;: &quot;main&quot;,\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;MartinLindbergg&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"7b7a0592-e74f-48db-a091-8cd136924a12\" />\r\n        <option name=\"url\" value=\"https://github.com/KevinWanisian/GrupparbeteJava.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2aicaxGTQI8I3RmJWQW7AgKwSMS\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showMembers\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.DeleteRowTest.executor\": \"Run\",\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"Application.MainTest.executor\": \"Run\",\r\n    \"JUnit.CheckDBTest.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main (1)\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.Main\" />\r\n      <module name=\"GrupparbeteMaven\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main (2)\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.Main\" />\r\n      <module name=\"GrupparbeteMaven\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.Main\" />\r\n      <module name=\"GrupparbeteMaven\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MainTest\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.MainTest\" />\r\n      <module name=\"GrupparbeteMaven\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"ReadDB\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.ReadDB\" />\r\n      <module name=\"GrupparbeteMaven\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.ReadDB\" />\r\n        <item itemvalue=\"Application.MainTest\" />\r\n        <item itemvalue=\"Application.Main (2)\" />\r\n        <item itemvalue=\"Application.Main (1)\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"24515563-6674-4cce-839f-df907eea15af\" name=\"Changes\" comment=\"\" />\r\n      <created>1704804906512</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1704804906512</updated>\r\n      <workItem from=\"1704962360463\" duration=\"3285000\" />\r\n    </task>\r\n    <task id=\"LOCAL−00001\" summary=\"La till en scanner för felhantering av antal gäster\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1704963041057</created>\r\n      <option name=\"number\" value=\"LOCAL−00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00001\" />\r\n      <updated>1704963041057</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"La till en scanner för felhantering av antal gäster\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"La till en scanner för felhantering av antal gäster\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 438c41d0498910f3d7eff530c52b45778dae4ae4)
++++ b/.idea/workspace.xml	(date 1705846008142)
+@@ -4,8 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="La till en scanner för felhantering av antal gäster">
+-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/DeleteRowTest.java" afterDir="false" />
++    <list default="true" id="24515563-6674-4cce-839f-df907eea15af" name="Changes" comment="Update test-file DeletwRowTest">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bookingsystem.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/bookingsystem.db" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/DeleteRowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/DeleteRowTest.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -64,26 +67,26 @@
+     <option name="showLibraryContents" value="true" />
+     <option name="showMembers" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.DeleteRowTest.executor": "Run",
+-    "Application.Main.executor": "Run",
+-    "Application.MainTest.executor": "Run",
+-    "JUnit.CheckDBTest.executor": "Run",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "main",
+-    "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.DeleteRowTest.executor&quot;: &quot;Run&quot;,
++    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
++    &quot;Application.MainTest.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.CheckDBTest.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
+-  <component name="RunManager">
++}</component>
++  <component name="RunManager" selected="Application.Main">
+     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+       <module name="GrupparbeteMaven" />
+@@ -183,7 +186,14 @@
+       <option name="presentableId" value="LOCAL−00001" />
+       <updated>1704963041057</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL−00002" summary="Update test-file DeletwRowTest">
++      <option name="closed" value="true" />
++      <created>1705652885144</created>
++      <option name="number" value="LOCAL−00002" />
++      <option name="presentableId" value="LOCAL−00002" />
++      <updated>1705652885144</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -202,6 +212,7 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="La till en scanner för felhantering av antal gäster" />
+-    <option name="LAST_COMMIT_MESSAGE" value="La till en scanner för felhantering av antal gäster" />
++    <MESSAGE value="Update test-file DeletwRowTest" />
++    <option name="LAST_COMMIT_MESSAGE" value="Update test-file DeletwRowTest" />
+   </component>
+ </project>
+\ No newline at end of file

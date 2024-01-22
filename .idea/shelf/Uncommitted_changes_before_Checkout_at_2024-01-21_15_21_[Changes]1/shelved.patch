@@ -1,0 +1,80 @@
+Index: src/test/java/org/example/DeleteRowTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\npublic class DeleteRowTest {\r\n\r\n    public static void main(String[] args) {\r\n        testDeleteRowFromTable();\r\n    }\r\n\r\n    public static void testDeleteRowFromTable() {\r\n        // Skapade en ny bokning som fick BookID 53 (så jag är säker på att 53 finns som ID)\r\n        int existingBookingId = 53;\r\n\r\n        // Testa att bokningen tas bort och returnerar \"Bokning borttagen\"\r\n        String result = DeleteRow.deleteRowFromTable(existingBookingId);\r\n        assert result.equals(\"Bokning borttagen\") : \"Test failed: Expected 'Bokning borttagen', got \" + result;\r\n\r\n        // Anta att BookingID 100 inte finns i databasen\r\n        int nonExistingBookingId = 100;\r\n\r\n        // Testa att returnera \"Okänt Id\" om bokningen inte finns\r\n        result = DeleteRow.deleteRowFromTable(nonExistingBookingId);\r\n        assert result.equals(\"Okänt Id\") : \"Test failed: Expected 'Okänt Id', got \" + result;\r\n\r\n        // Om inga Errors dyker upp, så är testet lyckat\r\n        System.out.println(\"Alla tester genomförda utan fel.\");\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/example/DeleteRowTest.java b/src/test/java/org/example/DeleteRowTest.java
+--- a/src/test/java/org/example/DeleteRowTest.java	
++++ b/src/test/java/org/example/DeleteRowTest.java	
+@@ -1,27 +1,35 @@
+ package org.example;
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertTrue;
++import static org.junit.Assert.assertFalse;
++
++import org.junit.Test;
++
+ public class DeleteRowTest {
+ 
+-    public static void main(String[] args) {
+-        testDeleteRowFromTable();
+-    }
++    // Testar om raden tas bort korrekt och returnerar rätt meddelande
++    @Test
++    public void testDeleteRowFromTable() {
++        // Förbered testdata
++        int idToRemove = 1; // Anpassa detta till ett befintligt ID i din databas för att testa
+ 
+-    public static void testDeleteRowFromTable() {
+-        // Skapade en ny bokning som fick BookID 53 (så jag är säker på att 53 finns som ID)
+-        int existingBookingId = 53;
++        // Utför testet
++        String result = DeleteRow.deleteRowFromTable(idToRemove);
+ 
+-        // Testa att bokningen tas bort och returnerar "Bokning borttagen"
+-        String result = DeleteRow.deleteRowFromTable(existingBookingId);
+-        assert result.equals("Bokning borttagen") : "Test failed: Expected 'Bokning borttagen', got " + result;
++        // Asserta förväntat resultat
++        assertEquals("Bokning borttagen", result);
++    }
+ 
+-        // Anta att BookingID 100 inte finns i databasen
+-        int nonExistingBookingId = 100;
++    // Testar om felaktigt ID returnerar rätt meddelande
++    @Test
++    public void testDeleteRowWithUnknownId() {
++        // Förbered testdata
++        int unknownId = -1; // Anpassa detta till ett icke-befintligt ID i din databas för att testa
+ 
+-        // Testa att returnera "Okänt Id" om bokningen inte finns
+-        result = DeleteRow.deleteRowFromTable(nonExistingBookingId);
+-        assert result.equals("Okänt Id") : "Test failed: Expected 'Okänt Id', got " + result;
++        // Utför testet
++        String result = DeleteRow.deleteRowFromTable(unknownId);
+ 
+-        // Om inga Errors dyker upp, så är testet lyckat
+-        System.out.println("Alla tester genomförda utan fel.");
++        // Asserta förväntat resultat
++        assertEquals("Okänt Id", result);
+     }
+ }
+-
+Index: src/main/java/org/example/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport javax.swing.JOptionPane;\r\n\r\nrecord Reservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {}\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        Restaurant restaurant = new Restaurant();\r\n\r\n        while (true) {\r\n            String[] options = {\"Gör en bokning\", \"Visa aktuella bokningar\", \"Ändra en bokning\", \"Ta bort en bokning\", \"Avsluta\"};\r\n            int choice = JOptionPane.showOptionDialog(null, \"Välkommen till bordsbokningssystemet!\", \"Meny\",\r\n                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);\r\n\r\n            String customerName = null;\r\n            switch (choice) {\r\n                case 0:\r\n                    // Felhantering för namn\r\n                    while (true) {\r\n                        customerName = inputDialog(\"Ange ditt namn:\");\r\n                        if (customerName.matches(\"[a-zA-ZåäöÅÄÖ ]+\")) {\r\n                            break;\r\n                        } else {\r\n                            restaurant.showPopupDialog(\"Endast bokstäver tillåtna i namnet.\", \"Fel inmatning.\");\r\n                        }\r\n                    }\r\n                    try {\r\n                        String phoneNumber = inputDialog(\"Ange ditt telefonnummer (endast siffror):\");\r\n                        int numberOfGuests = Integer.parseInt(inputDialog(\"Ange antal gäster:\"));\r\n                        String reservationDate = inputDialog(\"Ange datum för bokningen (YYYY-MM-DD):\");\r\n                        String reservationTime = inputDialog(\"Ange tid för bokningen (HH:MM-HH:MM):\");\r\n\r\n                        // Kollar om det finns ett tillgängligt bord det datumet och den tiden\r\n                        if (CheckDB.CheckBooking(reservationDate, reservationTime) == null) {\r\n                            JOptionPane.showMessageDialog(null, \"Inga bord lediga.\");\r\n                            break;}\r\n                        else {\r\n                            int tableID = CheckDB.CheckBooking(reservationDate, reservationTime);\r\n                            restaurant.makeReservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);\r\n                            break;\r\n                        }\r\n                    } catch (Exception e) {\r\n                        restaurant.showPopupDialog(\"Felaktig inmatning\\nBokningen avbryts\", \"Fel inmatning.\");\r\n                        break;\r\n                    }\r\n\r\n                case 1:\r\n                    restaurant.displayReservations();\r\n                    break;\r\n                case 2:\r\n                    try {\r\n                        int id = Integer.parseInt(inputDialog(\"Ange id för bokning som ska ändras:\"));\r\n                        String newCustomerName = inputDialog(\"Ange nytt namn för kunden:\");\r\n                        String newPhone = inputDialog(\"Ange nytt telefonnummer:\");\r\n                        int newNumberOfGuests = Integer.parseInt(inputDialog(\"Ange nytt antal gäster:\"));\r\n                        String output = restaurant.changeReservation(id, newCustomerName, newPhone, newNumberOfGuests);\r\n                        restaurant.showPopupDialog(output, \"Ändra bokning\");\r\n                    } catch (Exception e) {\r\n                        restaurant.showPopupDialog(\"Felaktig inmatning\\nUppdateringen avbryts\", \"Fel inmatning.\");\r\n                        break;\r\n                    }\r\n                    break;\r\n                case 3:\r\n                    try{\r\n                        int bookingID = Integer.parseInt(inputDialog(\"Ange id nummer på bokning som ska tas bort:\"));\r\n                        String output = restaurant.removeReservation(bookingID);\r\n                        restaurant.showPopupDialog(output, \"Ta bort bokning\");\r\n                    } catch (Exception e) {\r\n                        restaurant.showPopupDialog(\"Felaktig inmatning\", \"Fel inmatning.\");\r\n                        break;\r\n                    }\r\n                    break;\r\n                case 4:\r\n                    JOptionPane.showMessageDialog(null, \"Tack för att du använde bordsbokningssystemet. Hej då!\");\r\n                    System.exit(0);\r\n                    break;\r\n                default:\r\n                    JOptionPane.showMessageDialog(null, \"Ogiltigt val. Vänligen försök igen.\");\r\n            }\r\n        }\r\n    }\r\n    private static String inputDialog(String message) {\r\n        return JOptionPane.showInputDialog(null, message);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+--- a/src/main/java/org/example/Main.java	
++++ b/src/main/java/org/example/Main.java	
+@@ -83,4 +83,4 @@
+     private static String inputDialog(String message) {
+         return JOptionPane.showInputDialog(null, message);
+     }
+-}
+\ No newline at end of file
++}
