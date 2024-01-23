@@ -4,16 +4,11 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Restaurant {
-        private final ArrayList<Reservation> reservations = new ArrayList<>();
 
         public void makeReservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {
             // För att koppla till databas: Ersätt hårdkodade delar med nya parametrar
             InsertDB insertDB = new InsertDB();
             insertDB.InsertIntoTableBookings(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
-            // Tidigare kod
-            Reservation reservation = new Reservation(customerName, phoneNumber, numberOfGuests, tableID, reservationDate, reservationTime);
-            reservations.add(reservation);
-            messageDialog("Bokning skapad för " + customerName + " på " + reservationDate);
         }
 
         public String removeReservation(int id) {

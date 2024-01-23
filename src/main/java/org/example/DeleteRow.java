@@ -21,6 +21,7 @@ public class DeleteRow {
             PreparedStatement cursor = kontakt.prepareStatement(query);
             cursor.setInt(1, id);
             cursor.executeUpdate();
+            cursor.close();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

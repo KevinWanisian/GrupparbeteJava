@@ -26,6 +26,7 @@ public class UpdateRow {
             cursor.setInt(3, number);
             cursor.setInt(4, id);
             cursor.executeUpdate();
+            cursor.close();
             return "Ändring utförd";
         } catch (Exception e) {
             System.out.println(e.getMessage());

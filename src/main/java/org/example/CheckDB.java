@@ -49,6 +49,7 @@ public class CheckDB {
 
             // Hämtar TableID från de bokningar som är det aktuella datumet och tiden och sorterar dem i nummerordni
             int tableID = r.getInt("TableID");
+            cursor.close();
 
             if (tableID != 0) {
                 return true;
