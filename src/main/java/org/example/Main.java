@@ -2,8 +2,6 @@ package org.example;
 
 import javax.swing.JOptionPane;
 
-// record Reservation(String customerName, String phoneNumber, int numberOfGuests, int tableID, String reservationDate, String reservationTime) {}
-
 public class Main {
     public static void main(String[] args) {
         Restaurant restaurant = new Restaurant();
