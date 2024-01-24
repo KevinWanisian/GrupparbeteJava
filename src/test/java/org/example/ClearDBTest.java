@@ -3,6 +3,7 @@ package org.example;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -28,13 +29,13 @@ public class ClearDBTest {
     }
 
     @Test
-    public void testDeleteTableTables() {
-        assertTrue(clearDB.DeleteTableTables());
+    public void testDeleteTableTables() throws SQLException {
+        assertTrue(ClearDB.DeleteTableTables());
     }
 
     @Test
-    public void testDeleteTableBookings() {
-        assertTrue(clearDB.DeleteTableBookings());
+    public void testDeleteTableBookings() throws SQLException {
+        assertTrue(ClearDB.DeleteTableBookings());
     }
 
     @Test
