@@ -22,7 +22,7 @@ public class DeleteRow {
             cursor.setInt(1, id);
             cursor.executeUpdate();
             cursor.close();
-
+            cursor.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
